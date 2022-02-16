@@ -20,10 +20,10 @@ namespace MineSweeperTest
                                      new string [] { ".", "*", ".", "." },
                                      new string [] { ".", ".", ".", "." }};
 
-            var expected = new[] { new string [] { "*", "1", "1", "1" },
-                                   new string [] { "1", "1", "1", "1" },
-                                   new string [] { "1", "*", "1", "1" },
-                                   new string [] { "1", "1", "1", "1" }};
+            var expected = new[] { new string [] { "*", "1", "0", "0" },
+                                   new string [] { "2", "2", "1", "0" },
+                                   new string [] { "1", "*", "1", "0" },
+                                   new string [] { "1", "1", "1", "0" }};
 
             var actual = game.FindNeighbours(inputArray);
 

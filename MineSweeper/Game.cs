@@ -4,27 +4,37 @@
     {
         public string[][] FindNeighbours(string[][] gameBoard)
         {
-            int i = 0;
-            int j = 0;
+         
             var rowLimit = gameBoard.Length - 1;
             var columnLimit = gameBoard[0].Length - 1;
 
-            for (i = 0; i < rowLimit; i++)
+            for (int y_axisIndex = 0; y_axisIndex < gameBoard.Length; y_axisIndex++)
             {
-                for (j = 0; j < columnLimit; j++)
+                for (int x_axisIndex = 0; x_axisIndex < gameBoard.Length; x_axisIndex++)
                 {
-                    for (var x = Math.Max(0, i - 1); x <= Math.Min(i + 1, rowLimit); x++)
+                    if (gameBoard[y_axisIndex][x_axisIndex] == "*")
                     {
-                        for (var y = Math.Max(0, j - 1); y <= Math.Min(j + 1, columnLimit); y++)
+                        for (int rowIndex = Math.Max(0, y_axisIndex - 1); rowIndex <= Math.Min(y_axisIndex + 1, rowLimit); rowIndex++)
                         {
-                            if (x != i || y != j)
+                            for (int columnIndex = Math.Max(0, x_axisIndex - 1); columnIndex <= Math.Min(x_axisIndex + 1, columnLimit); columnIndex++)
                             {
-                                if (gameBoard[x][y] == ".")
+                                if (y_axisIndex != rowIndex || x_axisIndex != columnIndex)
                                 {
-                                    gameBoard[x][y] = "1";
+                                    if (int.TryParse(gameBoard[rowIndex][columnIndex], out int IsNumber))
+                                    {
+                                        gameBoard[rowIndex][columnIndex] = (IsNumber+1).ToString();
+                                    }
+                                    if (gameBoard[rowIndex][columnIndex] == ".")
+                                    {
+                                        gameBoard[rowIndex][columnIndex] = "1";
+                                    }
                                 }
                             }
                         }
+                    }
+                    if (gameBoard[y_axisIndex][x_axisIndex] == ".")
+                    {
+                        gameBoard[y_axisIndex][x_axisIndex] = "0";
                     }
                 }
             }
