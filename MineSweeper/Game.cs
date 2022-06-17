@@ -2,29 +2,31 @@
 {
     public class Game
     {
+        private string mine = "*";
+        private string safeBlock = ".";
         public string[][] FindNeighbours(string[][] gameBoard)
         {
          
-            var rowLimit = gameBoard.Length - 1;
-            var columnLimit = gameBoard[0].Length - 1;
+            var rowIndexLimit = gameBoard.Length - 1;
+            var columnIndexLimit = gameBoard[0].Length - 1;
 
-            for (int y_axisIndex = 0; y_axisIndex < gameBoard.Length; y_axisIndex++)
+            for (int indexOfYaxis = 0; indexOfYaxis < gameBoard.Length; indexOfYaxis++)
             {
-                for (int x_axisIndex = 0; x_axisIndex < gameBoard.Length; x_axisIndex++)
+                for (int indexOfXaxis = 0; indexOfXaxis < gameBoard.Length; indexOfXaxis++)
                 {
-                    if (gameBoard[y_axisIndex][x_axisIndex] == "*")
+                    if (gameBoard[indexOfYaxis][indexOfXaxis] == mine)
                     {
-                        for (int rowIndex = Math.Max(0, y_axisIndex - 1); rowIndex <= Math.Min(y_axisIndex + 1, rowLimit); rowIndex++)
+                        for (int rowIndex = Math.Max(0, indexOfYaxis - 1); rowIndex <= Math.Min(indexOfYaxis + 1, rowIndexLimit); rowIndex++)
                         {
-                            for (int columnIndex = Math.Max(0, x_axisIndex - 1); columnIndex <= Math.Min(x_axisIndex + 1, columnLimit); columnIndex++)
+                            for (int columnIndex = Math.Max(0, indexOfXaxis - 1); columnIndex <= Math.Min(indexOfXaxis + 1, columnIndexLimit); columnIndex++)
                             {
-                                if (y_axisIndex != rowIndex || x_axisIndex != columnIndex)
+                                if (indexOfYaxis != rowIndex || indexOfXaxis != columnIndex)
                                 {
                                     if (int.TryParse(gameBoard[rowIndex][columnIndex], out int IsNumber))
                                     {
                                         gameBoard[rowIndex][columnIndex] = (IsNumber+1).ToString();
                                     }
-                                    if (gameBoard[rowIndex][columnIndex] == ".")
+                                    if (gameBoard[rowIndex][columnIndex] == safeBlock)
                                     {
                                         gameBoard[rowIndex][columnIndex] = "1";
                                     }
@@ -32,9 +34,9 @@
                             }
                         }
                     }
-                    if (gameBoard[y_axisIndex][x_axisIndex] == ".")
+                    if (gameBoard[indexOfYaxis][indexOfXaxis] == safeBlock)
                     {
-                        gameBoard[y_axisIndex][x_axisIndex] = "0";
+                        gameBoard[indexOfYaxis][indexOfXaxis] = "0";
                     }
                 }
             }
